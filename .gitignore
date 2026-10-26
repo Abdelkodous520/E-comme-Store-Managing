@@ -1,5 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
 
+# Données Olist
+data/raw/
+*.csv
+
+# Base de données locale DuckDB
+*.duckdb
+*.duckdb.wal
+
+# Fichiers générés par dbt
 target/
 dbt_packages/
 logs/
+
+# Fichiers locaux
 .env
+.DS_Store
