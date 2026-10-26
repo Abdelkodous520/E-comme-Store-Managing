@@ -1,0 +1,23 @@
+
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Données clients préparées pour l'analyse."
+
+    columns:
+      - name: customer_id
+        description: "Identifiant du client dans une commande."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_unique_id
+        description: "Identifiant unique du client."
+        data_tests:
+          - not_null
+
+      - name: customer_state
+        description: "État brésilien du client."
+        data_tests:
+          - not_null
