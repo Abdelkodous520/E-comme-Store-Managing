@@ -1,0 +1,90 @@
+
+version: 2
+
+models:
+
+  - name: fact_order_lines
+    description: >
+      Table de faits contenant une ligne par article de commande.
+      Les commandes sans article sont conservées avec order_item_id = 0.
+    columns:
+      - name: order_id
+        description: Identifiant de la commande.
+        tests:
+          - not_null
+
+      - name: order_item_id
+        description: Identifiant de la ligne d'article.
+
+      - name: customer_id
+        description: Identifiant du client.
+
+      - name: product_id
+        description: Identifiant du produit.
+
+      - name: seller_id
+        description: Identifiant du vendeur.
+
+      - name: order_status
+        description: Statut de la commande.
+
+      - name: item_count
+        description: Nombre d'articles représenté par la ligne.
+
+      - name: order_count
+        description: Vaut 1 sur la première ligne de chaque commande.
+
+      - name: duree_livraison_jours
+        description: Durée entre l'achat et la livraison en jours.
+
+      - name: retard_flag
+        description: >
+          1 si la commande est livrée en retard,
+          0 si elle est livrée à temps, NULL si non évaluable.
+
+  - name: fact_payments
+    description: >
+      Table de faits contenant une ligne par séquence
+      de paiement d'une commande.
+    columns:
+      - name: order_id
+        description: Identifiant de la commande.
+        tests:
+          - not_null
+
+      - name: payment_sequential
+        description: Numéro de séquence du paiement.
+        tests:
+          - not_null
+
+      - name: payment_type
+        description: Type de paiement.
+
+      - name: payment_installments
+        description: Nombre de mensualités.
+
+      - name: payment_value
+        description: Montant du paiement.
+
+  - name: fact_reviews
+    description: >
+      Table de faits contenant une ligne par avis source.
+      Les review_id répétés sont conservés.
+    columns:
+      - name: review_row_key
+        description: Clé technique unique de chaque ligne d'avis.
+        tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: Identifiant de la commande.
+
+      - name: review_id
+        description: Identifiant source de l'avis, potentiellement répété.
+
+      - name: review_score
+        description: Note attribuée par le client, de 1 à 5.
+
+      - name: review_date_key
+        description: Date de création de l'avis au format AAAAMMJJ.

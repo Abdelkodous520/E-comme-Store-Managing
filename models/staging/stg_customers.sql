@@ -1,3 +1,6 @@
+
+{{ config(materialized='view') }}
+
 SELECT
     customer_id,
     customer_unique_id,
