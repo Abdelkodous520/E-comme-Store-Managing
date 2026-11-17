@@ -10,6 +10,9 @@ WITH lignes AS (
         o.customer_id,
         COALESCE(oi.product_id, '-1') AS product_id,
         COALESCE(oi.seller_id, '-1') AS seller_id,
+        dc.customer_key,
+        dp.product_key,
+        ds.seller_key,
 
         o.order_status,
 
@@ -34,6 +37,12 @@ WITH lignes AS (
 
     LEFT JOIN {{ ref('stg_order_items') }} AS oi
         ON o.order_id = oi.order_id
+    LEFT JOIN {{ ref('dim_customer') }} AS dc
+        ON o.customer_id = dc.customer_id
+    LEFT JOIN {{ ref('dim_product') }} AS dp
+        ON oi.product_id = dp.product_id
+    LEFT JOIN {{ ref('dim_seller') }} AS ds
+        ON oi.seller_id = ds.seller_id
 ),
 
 lignes_preparees AS (
@@ -76,6 +85,9 @@ SELECT
     customer_id,
     product_id,
     seller_id,
+    customer_key,
+    product_key,
+    seller_key,
 
     CAST(strftime(t_achat, '%Y%m%d') AS INTEGER)
         AS date_achat_key,

@@ -15,7 +15,7 @@ SELECT
         2
     ) AS taux_retard_pct
 
-FROM {{ ref('fact_order_lines') }}
+FROM {{ ref('fact_orders') }}
 
 WHERE order_status = 'delivered'
   AND retard_flag IS NOT NULL

@@ -29,6 +29,8 @@ SELECT
     review_row_key,
     order_id,
     review_id,
+    o.customer_id,
+    dc.customer_key,
 
     CAST(review_score AS INTEGER) AS review_score,
 
@@ -48,4 +50,8 @@ SELECT
         ) AS INTEGER
     ) AS review_date_key
 
-FROM avis
+FROM avis AS a
+LEFT JOIN {{ ref('stg_orders') }} AS o
+    ON a.order_id = o.order_id
+LEFT JOIN {{ ref('dim_customer') }} AS dc
+    ON o.customer_id = dc.customer_id

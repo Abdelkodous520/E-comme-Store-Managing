@@ -419,8 +419,8 @@
     ],
     "item_sales": [
       [
-        13494400.73999932,
-        2241126.289999932,
+        13494400.739999633,
+        2241126.2900000135,
         98199
       ]
     ],
@@ -483,7 +483,7 @@
     ],
     "gmv_delivered": [
       [
-        13221498.109999834,
+        13221498.109999128,
         96478
       ]
     ]
@@ -497,11 +497,11 @@
       "numerator_people": 2888,
       "rate_percent": 3.0403200336877565
     },
-    "gmv_admissible_items_brl": 13494400.73999932,
-    "basket_mean_all_eligible_brl": 137.40772796235828,
-    "basket_mean_with_items_brl": 137.41892218861008,
-    "freight_admissible_brl": 2241126.289999932,
-    "gmv_delivered_items_brl": 13221498.109999834,
+    "gmv_admissible_items_brl": 13494400.739999633,
+    "basket_mean_all_eligible_brl": 137.40772796236146,
+    "basket_mean_with_items_brl": 137.41892218861327,
+    "freight_admissible_brl": 2241126.2900000135,
+    "gmv_delivered_items_brl": 13221498.109999128,
     "delivered_order_count": 96478,
     "delivery_evaluable_count": 96470,
     "late_delivered_count": 7826,

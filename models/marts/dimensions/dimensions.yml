@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: Dimension client au grain un client de commande.
+    columns:
+      - name: customer_key
+        description: Clé substitut de la dimension.
+        data_tests: [not_null, unique]
+      - name: customer_id
+        description: Identifiant client dans la commande source.
+        data_tests: [not_null, unique]
+      - name: customer_unique_id
+        description: Identifiant stable de la personne entre commandes.
+      - name: postal_code
+        description: Préfixe du code postal client.
+      - name: city
+        description: Ville du client.
+      - name: state
+        description: État fédéré du client.
+
+  - name: dim_product
+    description: Dimension produit avec catégorie originale et traduction anglaise.
+    columns:
+      - name: product_key
+        description: Clé substitut de la dimension.
+        data_tests: [not_null, unique]
+      - name: product_id
+        description: Identifiant métier du produit.
+        data_tests: [not_null, unique]
+      - name: category_name_en
+        description: Catégorie traduite, ou unknown si la traduction manque.
+
+  - name: dim_seller
+    description: Dimension vendeur au grain un vendeur.
+    columns:
+      - name: seller_key
+        description: Clé substitut de la dimension.
+        data_tests: [not_null, unique]
+      - name: seller_id
+        description: Identifiant métier du vendeur.
+        data_tests: [not_null, unique]
+      - name: postal_code
+        description: Préfixe du code postal vendeur.
+      - name: city
+        description: Ville du vendeur.
+      - name: state
+        description: État fédéré du vendeur.
+
+  - name: dim_date
+    description: Dimension calendrier journalière utilisée selon plusieurs rôles de date.
+    columns:
+      - name: date_key
+        description: Date au format AAAAMMJJ, clé primaire de calendrier.
+        data_tests: [not_null, unique]
+      - name: date_day
+        description: Date complète.
+      - name: year
+        description: Année civile.
+      - name: quarter
+        description: Trimestre civil.
+      - name: month
+        description: Numéro du mois.
+      - name: week_of_year
+        description: Numéro de semaine.

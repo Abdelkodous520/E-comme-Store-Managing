@@ -7,7 +7,7 @@ WITH commandes_clients AS (
         customer_id,
         COUNT(DISTINCT order_id) AS nb_commandes
 
-    FROM {{ ref('fact_order_lines') }}
+    FROM {{ ref('fact_order_items') }}
 
     WHERE order_status NOT IN ('canceled', 'unavailable')
       AND order_count = 1

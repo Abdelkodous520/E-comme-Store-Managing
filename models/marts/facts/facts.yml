@@ -3,7 +3,46 @@ version: 2
 
 models:
 
-  - name: fact_order_lines
+  - name: fact_orders
+    description: >
+      Table de faits au grain commande : une ligne par commande source.
+      Porte les mesures et indicateurs calculés une seule fois par commande,
+      notamment le délai et le retard de livraison.
+    columns:
+      - name: order_id
+        description: Identifiant de commande, unique à ce grain.
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: Identifiant du client associé à la commande.
+
+      - name: customer_key
+        description: Clé étrangère vers dim_customer.
+
+      - name: date_achat_key
+        description: Date d'achat au format AAAAMMJJ.
+
+      - name: date_livraison_key
+        description: Date de livraison réelle au format AAAAMMJJ.
+
+      - name: date_estimee_key
+        description: Date de livraison estimée au format AAAAMMJJ.
+
+      - name: order_status
+        description: Statut de la commande.
+
+      - name: order_count
+        description: Vaut toujours 1, à sommer pour compter les commandes.
+
+      - name: duree_livraison_jours
+        description: Durée achat-livraison, renseignée si livrée et datée.
+
+      - name: retard_flag
+        description: 1 si livrée après la date estimée, 0 sinon, NULL si non évaluable.
+
+  - name: fact_order_items
     description: >
       Table de faits contenant une ligne par article de commande.
       Les commandes sans article sont conservées avec order_item_id = 0.
@@ -24,6 +63,15 @@ models:
 
       - name: seller_id
         description: Identifiant du vendeur.
+
+      - name: customer_key
+        description: Clé étrangère vers dim_customer.
+
+      - name: product_key
+        description: Clé étrangère vers dim_product, NULL si la ligne n'a pas de produit.
+
+      - name: seller_key
+        description: Clé étrangère vers dim_seller, NULL si la ligne n'a pas de vendeur.
 
       - name: order_status
         description: Statut de la commande.
@@ -57,6 +105,12 @@ models:
         tests:
           - not_null
 
+      - name: customer_key
+        description: Clé étrangère vers dim_customer.
+
+      - name: date_achat_key
+        description: Clé étrangère vers dim_date pour la date d'achat.
+
       - name: payment_type
         description: Type de paiement.
 
@@ -83,8 +137,11 @@ models:
       - name: review_id
         description: Identifiant source de l'avis, potentiellement répété.
 
+      - name: customer_key
+        description: Clé étrangère vers dim_customer.
+
       - name: review_score
         description: Note attribuée par le client, de 1 à 5.
 
       - name: review_date_key
-        description: Date de création de l'avis au format AAAAMMJJ.
+        description: Clé étrangère vers dim_date pour la date de création de l'avis.

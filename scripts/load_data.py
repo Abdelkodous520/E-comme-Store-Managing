@@ -4,7 +4,7 @@ import duckdb
 
 # Racine du projet : dossier contenant data/ et scripts/
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = PROJECT_DIR / "data" / "raw"
+DATA_DIR = PROJECT_DIR / "Data" / "raw"
 DB_PATH = PROJECT_DIR / "warehouse.duckdb"
 
 # Fichier CSV -> nom de la table dans DuckDB

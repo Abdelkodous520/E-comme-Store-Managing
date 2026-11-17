@@ -1,7 +1,6 @@
 
 from pathlib import Path
 import duckdb
-
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = PROJECT_DIR / "warehouse.duckdb"
 
@@ -45,13 +44,21 @@ try:
             print(f"{column[0]} ({column[1]})")
 
         print("\n=== APERCU DES CLIENTS ===")
-        print(
-            con.execute("""
-                SELECT *
-                FROM raw.customers
-                LIMIT 5
-            """).df().to_string(index=False)
-        )
+        result = con.execute("""
+            SELECT *
+            FROM raw.customers
+            LIMIT 5
+        """)
+        headers = [column[0] for column in result.description]
+        rows = result.fetchall()
+        widths = [
+            max(len(header), *(len(str(row[index])) for row in rows))
+            for index, header in enumerate(headers)
+        ]
+        print(" | ".join(header.ljust(widths[index]) for index, header in enumerate(headers)))
+        print("-+-".join("-" * width for width in widths))
+        for row in rows:
+            print(" | ".join(str(value).ljust(widths[index]) for index, value in enumerate(row)))
     else:
         print("La table raw.customers est absente.")
 

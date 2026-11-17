@@ -16,6 +16,6 @@ SELECT
         2
     ) AS taux_livrees_pct
 
-FROM {{ ref('fact_order_lines') }}
+FROM {{ ref('fact_order_items') }}
 
 WHERE order_status NOT IN ('canceled', 'unavailable')

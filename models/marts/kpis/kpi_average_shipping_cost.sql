@@ -7,7 +7,7 @@ WITH commandes AS (
         order_id,
         SUM(freight_value) AS frais_livraison
 
-    FROM {{ ref('fact_order_lines') }}
+    FROM {{ ref('fact_order_items') }}
 
     WHERE order_status NOT IN ('canceled', 'unavailable')
       AND item_count = 1

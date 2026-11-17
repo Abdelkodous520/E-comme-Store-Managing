@@ -7,7 +7,7 @@ WITH commandes AS (
         order_id,
         SUM(price) AS valeur_articles
 
-    FROM {{ ref('fact_order_lines') }}
+    FROM {{ ref('fact_order_items') }}
 
     WHERE order_status NOT IN ('canceled', 'unavailable')
       AND item_count = 1
